@@ -27,6 +27,7 @@ The repository uses:
 ## 2  CI/CD Pipeline (GitHub Actions)
 
 > File: **.github/workflows/ci‑cd.yml**
+> Before making a merge requets, make sure to run ``blake .`` and ``isort .``
 
 
 
