@@ -28,14 +28,16 @@ environment variables, limiting risk of credential leakage.
 ## Web Scraping
 
 `autoshift_core/scraper.py` uses `httpx` and `BeautifulSoup` to fetch and parse hardware
-monitoring pages. The example function `fetch_page_title` illustrates how to
-extract HTML data asynchronously.
+monitoring pages. `fetch_page_title` illustrates simple extraction while
+`fetch_metrics` parses key/value tables from pages labelled with the `metrics`
+CSS class.
 
 ## Mainframe Automation
 
-`autoshift_core/mainframe.py` provides `run_command` as a stub for executing commands on a
-mainframe via SSH. This can be replaced with more advanced tooling (such as
-`py3270` or vendor-specific APIs) without impacting the rest of the codebase.
+`autoshift_core/mainframe.py` exposes `run_command` as a stub for executing
+commands on a mainframe host. `collect_system_info` demonstrates how higher
+level helpers can be composed on top of it. In real deployments this function
+would interface with tools like `py3270` instead of subprocess calls.
 
 ## Testing Strategy
 

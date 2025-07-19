@@ -1,16 +1,21 @@
-import httpx
 from typing import Any, Dict
+
+import httpx
 
 
 class SplunkHECClient:
     def __init__(self, url: str, token: str) -> None:
-        self.url = url.rstrip('/') + '/services/collector'
+        self.url = url.rstrip("/") + "/services/collector"
         self.token = token
-        self.headers = {
-            "Authorization": f"Splunk {self.token}"
-        }
+        self.headers = {"Authorization": f"Splunk {self.token}"}
 
-    async def send_event(self, event: Dict[str, Any], *, index: str = "main", sourcetype: str = "autoshift") -> None:
+    async def send_event(
+        self,
+        event: Dict[str, Any],
+        *,
+        index: str = "main",
+        sourcetype: str = "autoshift",
+    ) -> None:
         payload = {
             "event": event,
             "index": index,

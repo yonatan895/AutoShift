@@ -32,7 +32,7 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
       - run: pip install -r requirements/test.txt
-      - run: pytest --cov=autoshift_core --cov=autoshift_project
+      - run: pytest --cov=src 
       - uses: codecov/codecov-action@v4
   build:
     runs-on: ubuntu-latest
