@@ -48,3 +48,5 @@ pytest
 
 See `ARCHITECTURE.md` for additional details on project structure and advanced
 features.
+
+For mainframe data collection examples, see [docs/mainframe_to_splunk.md](docs/mainframe_to_splunk.md).
