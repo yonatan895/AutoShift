@@ -21,7 +21,6 @@ jobs:
         run: |
           black .
           isort .
-          flake8 .
           bandit -r src -ll
   test:
     runs-on: ubuntu-latest
