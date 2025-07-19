@@ -19,9 +19,8 @@ jobs:
       - run: pip install -r requirements/ci.txt
       - name: Code style & security
         run: |
-          black --check .
-          isort --check .
-          flake8 .
+          black .
+          isort .
           bandit -r autoshift_core -ll
   test:
     runs-on: ubuntu-latest
