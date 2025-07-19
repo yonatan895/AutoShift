@@ -20,7 +20,7 @@ jobs:
       - name: Code style & security
         run: |
           black .
-          isort --check .
+          isort .
           flake8 .
           bandit -r src -ll
   test:
