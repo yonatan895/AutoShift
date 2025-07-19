@@ -60,9 +60,9 @@ jobs:
       - run: echo "${{ github.sha }}" > VERSION
       - name: Build & push image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
+          docker build -t ghcr.io/${{ github.repository,, }}:${{ github.sha }} .
           echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository,, }}:${{ github.sha }}
       
   deploy:
     runs-on: ubuntu-latest
