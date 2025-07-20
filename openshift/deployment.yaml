@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: autoshift
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: autoshift
+  template:
+    metadata:
+      labels:
+        app: autoshift
+    spec:
+      containers:
+      - name: app
+        image: ghcr.io/REPO_PLACEHOLDER/autoshift:latest
+        env:
+        - name: DJANGO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: autoshift-secrets
+              key: django_secret
+        - name: SPLUNK_HEC_URL
+          value: https://splunk.example.com
+        - name: SPLUNK_HEC_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: autoshift-secrets
+              key: splunk_token
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: autoshift
+spec:
+  selector:
+    app: autoshift
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8000
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: autoshift
+spec:
+  to:
+    kind: Service
+    name: autoshift
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

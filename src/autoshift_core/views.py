@@ -1,12 +1,12 @@
-from django.http import JsonResponse, HttpResponseBadRequest
-from django.views.decorators.http import require_POST
+import asyncio
+
 from django.conf import settings
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from .mainframe import run_command
 from .splunk import SplunkHECClient
-
-import asyncio
 
 
 @require_POST
