@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +26,11 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-secret-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split() if os.environ.get("DJANGO_ALLOWED_HOSTS") else []
+ALLOWED_HOSTS = (
+    os.environ.get("DJANGO_ALLOWED_HOSTS", "").split()
+    if os.environ.get("DJANGO_ALLOWED_HOSTS")
+    else []
+)
 
 
 # Application definition
@@ -86,19 +90,19 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
+UASV = (
+    "django.contrib.auth.password_validation."
+    "UserAttributeSimilarityValidator"  # noqa: E501
+)
+MLV = "django.contrib.auth.password_validation.MinimumLengthValidator"  # noqa: E501
+CPV = "django.contrib.auth.password_validation.CommonPasswordValidator"  # noqa: E501
+NPV = "django.contrib.auth.password_validation.NumericPasswordValidator"  # noqa: E501
+
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": UASV},
+    {"NAME": MLV},
+    {"NAME": CPV},
+    {"NAME": NPV},
 ]
 
 

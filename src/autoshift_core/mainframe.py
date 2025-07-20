@@ -1,5 +1,5 @@
 import subprocess
-from typing import List
+from typing import Dict, List
 
 
 def run_command(command: List[str]) -> str:
@@ -12,3 +12,9 @@ def run_command(command: List[str]) -> str:
     if result.returncode != 0:
         raise RuntimeError(result.stderr)
     return result.stdout
+
+
+def collect_system_info() -> Dict[str, str]:
+    """Collect basic system information using the `uname` command."""
+    output = run_command(["uname", "-a"])
+    return {"system_info": output.strip()}
