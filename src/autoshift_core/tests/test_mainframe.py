@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # noqa: E402
 from autoshift_core.mainframe import collect_system_info  # noqa: E402
 

@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 
+
 # isort: skip_file
 
 import httpx
@@ -11,6 +12,7 @@ from autoshift_core.scraper import (  # noqa: E402
     fetch_metrics,
     fetch_page_title,
 )  # isort: skip
+
 
 
 @pytest.mark.asyncio

@@ -22,9 +22,11 @@ class SplunkHECClient:
             "sourcetype": sourcetype,
         }
         async with httpx.AsyncClient(timeout=10) as client:
+
             response = await client.post(
                 self.url,
                 json=payload,
                 headers=self.headers,
             )
+
             response.raise_for_status()

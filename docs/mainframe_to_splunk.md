@@ -33,8 +33,10 @@ Replace the dataset name, credentials, and host as needed.
 
 ## ASM Helper
 
+
 The assembler file `mainframe_scripts/asm/GETSYSIN.ASM` can be assembled and linked to produce a load module that collects system information.  The collected data may be routed through the REXX routine above or written directly to a dataset for later transfer.
 
 ## Pipeline
 
 The GitHub Actions workflow in `.github/workflows/ci-cd.yml` builds the container image and can deploy it to an OpenShift cluster.  The automation scripts shown here are intended to run on the mainframe and forward their output to Splunk.  Update the FTP target and HEC token to point to your Splunk instance.
+

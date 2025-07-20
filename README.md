@@ -54,6 +54,7 @@ features.
 
 For mainframe data collection examples, see [docs/mainframe_to_splunk.md](docs/mainframe_to_splunk.md).
 
+
 ### Deployment to OpenShift
 
 The project ships with example manifests under `openshift/` for deploying the
@@ -74,3 +75,4 @@ container image to an OpenShift cluster.  A typical workflow is:
 The `Route` resource exposes the Django service publicly. Update the
 environment variables in `openshift/deployment.yaml` to match your Splunk HEC
 endpoint and any production secrets.
+

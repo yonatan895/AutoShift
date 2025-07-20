@@ -4,8 +4,11 @@ from pathlib import Path
 import httpx
 import pytest
 
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # noqa: E402
 from autoshift_core.splunk import SplunkHECClient  # noqa: E402
+
+
 
 
 @pytest.mark.asyncio
