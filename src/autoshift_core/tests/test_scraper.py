@@ -1,11 +1,18 @@
 import sys
 from pathlib import Path
 
+
+# isort: skip_file
+
 import httpx
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from autoshift_core.scraper import fetch_metrics, fetch_page_title
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # noqa: E402
+from autoshift_core.scraper import (  # noqa: E402
+    fetch_metrics,
+    fetch_page_title,
+)  # isort: skip
+
 
 
 @pytest.mark.asyncio

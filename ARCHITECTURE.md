@@ -54,3 +54,10 @@ project uses `pytest` with the `asyncio` marker for async tests.
 - The example view is CSRF-exempt for demonstration purposes; production
   deployments should integrate proper authentication and authorization.
 
+## Deployment
+
+Container images are published to GitHub Container Registry by the CI pipeline.
+The manifests under `openshift/` can be applied to any OpenShift cluster. A
+`Route` object exposes the service externally while the `Deployment` runs the
+Django process behind Gunicorn.
+

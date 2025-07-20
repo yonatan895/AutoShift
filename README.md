@@ -53,3 +53,26 @@ See `ARCHITECTURE.md` for additional details on project structure and advanced
 features.
 
 For mainframe data collection examples, see [docs/mainframe_to_splunk.md](docs/mainframe_to_splunk.md).
+
+
+### Deployment to OpenShift
+
+The project ships with example manifests under `openshift/` for deploying the
+container image to an OpenShift cluster.  A typical workflow is:
+
+1. Build and push the image (the CI pipeline already does this):
+   ```bash
+   docker build -t ghcr.io/<your repo>/autoshift:latest .
+   docker push ghcr.io/<your repo>/autoshift:latest
+   ```
+2. Log in to your OpenShift cluster and apply the resources:
+   ```bash
+   oc login https://api.cluster.example.com --token=<token>
+   oc new-project autoshift || oc project autoshift
+   oc apply -f openshift/
+   ```
+
+The `Route` resource exposes the Django service publicly. Update the
+environment variables in `openshift/deployment.yaml` to match your Splunk HEC
+endpoint and any production secrets.
+

@@ -19,9 +19,10 @@ jobs:
       - run: pip install -r requirements/ci.txt
       - name: Code style & security
         run: |
-          black .
-          isort .
-          bandit -r autoshift_core -ll
+          black --check .
+          isort --check .
+          flake8 .
+          bandit -r src -ll
   test:
     runs-on: ubuntu-latest
     needs: lint
@@ -32,7 +33,7 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
       - run: pip install -r requirements/test.txt
-      - run: pytest --cov=src 
+      - run: pytest --cov=src --cov-fail-under=90
       - uses: codecov/codecov-action@v4
   build:
     runs-on: ubuntu-latest
@@ -47,5 +48,24 @@ jobs:
       - name: Build & push image
         run: |
           docker build -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install oc client
+        run: |
+          curl -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz | tar -xz oc kubectl
+          sudo mv oc kubectl /usr/local/bin/
+      - name: Deploy to OpenShift
+        env:
+          OCP_SERVER: ${{ secrets.OCP_SERVER }}
+          OCP_TOKEN: ${{ secrets.OCP_TOKEN }}
+          OCP_PROJECT: ${{ secrets.OCP_PROJECT }}
+        run: |
+          oc login "$OCP_SERVER" --token="$OCP_TOKEN" --insecure-skip-tls-verify
+          oc project "$OCP_PROJECT"
+          oc apply -f openshift/
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           docker push ghcr.io/${{ github.repository }}:${{ github.sha }}

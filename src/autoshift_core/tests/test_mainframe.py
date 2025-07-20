@@ -1,10 +1,9 @@
 import sys
 from pathlib import Path
 
-import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from autoshift_core.mainframe import collect_system_info
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # noqa: E402
+from autoshift_core.mainframe import collect_system_info  # noqa: E402
 
 
 def test_collect_system_info(monkeypatch):
