@@ -37,7 +37,7 @@ jobs:
       - uses: codecov/codecov-action@v4
   build:
     runs-on: ubuntu-latest
-    permissions
+    permissions:
       packages: write
       id-token: write
       contents: read
