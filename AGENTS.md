@@ -28,6 +28,7 @@ The repository uses:
 
 > File: **.github/workflows/ci‑cd.yml**
 > Before making a merge requets, make sure to run ``blake .`` and ``isort .``
+> make small, trackable iterations, that won't cause major merge conflicts on pull requests
 
 
 
